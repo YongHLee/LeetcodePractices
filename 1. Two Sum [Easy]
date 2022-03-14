@@ -1,0 +1,22 @@
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+
+var twoSum = function(nums, target) {
+    var numsObj = {};
+    for (let i = 0; i < nums.length; i++) {
+        let pairLocation = numsObj[target - nums[i]]
+        if (pairLocation !=== undefined) {
+            return [i, pairLocation]
+        }
+        numsObj[nums[i]] = i
+    }
+};
+
+
+// We want to make a object of nums[] as you iterate through nums[]. Check if the pair (target - nums[i]) already exist in the map. By doing this we can do
+// one pass while setting entries in the object.
+// If it already exist then, find the index of the pairs and return it. If pair does not already exist, record nums[i] and its index i in the object by
+// seting key = nums[i] and value = i
