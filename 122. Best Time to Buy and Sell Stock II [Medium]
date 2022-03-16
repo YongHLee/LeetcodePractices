@@ -1,0 +1,22 @@
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function(prices) {
+    var totalProfit = 0
+    for (let i = 0 ; i < prices.length - 1; i++) {
+     let profit = prices[i+1] - prices[i]
+     if (profit > 0) {
+        totalProfit += profit
+     }
+    }
+    return totalProfit
+};
+
+// if price went down, use that element as buying price
+// if price went up, use that element as selling price. 
+// once stock is sold, add profit to totalProfit
+
+// We want to maximize profit. Therefore, we are only interested in when there is a chance for making a profit. 
+// Profit is defined by the positive price difference between past price (purchase price) and current price (sell price).
+// If there is any profit, we want to make that transaction which will add to the total profit. 
