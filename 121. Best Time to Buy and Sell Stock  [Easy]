@@ -1,0 +1,27 @@
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function(prices) {
+    var maxProfit = 0 
+    var profit = 0 
+    var buyingPrice = prices[0]
+    for (let i = 0 ; i < prices.length; i++) {
+        if (prices[i] - buyingPrice > 0) {
+            profit = prices[i] - buyingPrice
+            maxProfit = Math.max(profit , maxProfit)
+        } else {
+            buyingPrice = prices[i]
+        }
+    }
+    return maxProfit
+}
+/*
+We want to calculate the maximum profit we can achieve from a single buy-sell transaction. 
+Then we must compare profits that can be achieved and choose the maximum profit. 
+Profit can be defined as the positive difference between buying price and selling price. 
+prices[i] - buyingPrice is profit only if is greator than 0. 
+If profit exists for the current iteration, compare current profit with past maximum proift. 
+Buying price should be set to the current price if the price went down compared to last price 
+since it would give you maximum profit if you buy the stack at lower price. 
+ */
