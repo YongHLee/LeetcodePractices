@@ -1,0 +1,57 @@
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var productExceptSelf = function(nums) {
+    var leftProducts = []
+    var rightProducts = []
+    var answer = []
+    
+    leftProducts[0] = 1
+    for (let i = 1; i < nums.length; i++) {
+        leftProducts[i] = (nums[i-1] * leftProducts[i-1])
+    }
+    
+    rightProducts[nums.length - 1] = 1
+    for (let i = nums.length - 2; i >= 0; i--) {
+        rightProducts[i] = (nums[i+1] * rightProducts[i+1])
+    }
+    
+    for (let i = 0; i < nums.length; i++) {
+        answer[i] = leftProducts[i] * rightProducts[i]
+    }
+    
+    return answer
+}
+
+/*
+Since we cannot use division to caculate the product for all elements expect ith element, can san think of a creative way to find this product. 
+One way is think the product of all element except ith element as product of all elements left to ith element and 
+product of all elements right to ith element. Then we can break this problem into three loops. 
+First loop to calculate all left products to ith element. 
+Second loop to all rightt products to ith element. 
+Thrid to mutiply left products and right products of ith element to calcualate the product for all elements expect ith element. 
+
+You can decrease space complexity by only using right products and introduce mutiplier which acts as left products. 
+*/
+
+
+
+// var productExceptSelf = function(nums) {
+//     var answer = []
+//     answer[0] = 1
+//     for (let i = 1; i < nums.length; i++) {
+//         answer[i] = (answer[i-1] * nums[i-1])
+//     }
+//     console.log(answer)
+//     var multiplier = 1
+//     answer[nums.length - 1] = 1 * answer[nums.length - 1]
+//     for (let i = nums.length - 2; i >= 0; i--) {
+//         multiplier *= nums[i+1]
+//         answer[i] = (multiplier * answer[i])
+//     }
+//     return answer
+// }
+
+
+
