@@ -1,0 +1,39 @@
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var containsDuplicate = function(nums) {
+    const numsObj = {}
+    for (let i = 0; i < nums.length; i++) {
+        if (numsObj[nums[i]] !== undefined) {
+            return true
+        } else {
+            numsObj[nums[i]] = true
+        }
+    }
+    return false
+};
+
+/*
+We want to see if duplicate exists in the array. In order to do this, we can use map(or object if the structure is simple) to 
+log existing number as the key of an object entry. As we iterate through nums[], if an object entry with the nums[i] as key already exists,
+we can conclude that the current nums[i] is a duplicate. If such object entry does not exist, there is no record of nums[i] in nums[] so and 
+nums[i] to numsObj. 
+
+Another way to solve this problem would be sorting then iterate through the array to see if current nums[i] is duplicate of nums[i-1] 
+as shown below. But this would result in time complexity of n*log(n) vs n for the map method. 
+*/
+
+
+
+// var containsDuplicate = function(nums) {
+//     nums.sort((a,b) => a - b)
+//     for (let i = 1; i < nums.length; i++) {
+//         if (nums[i] == nums[i-1]) {
+//             return true
+//         }
+//     }
+//     return false
+// };
+
+
