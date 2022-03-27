@@ -1,0 +1,43 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMin = function(nums) {
+    if (nums.length == 1) return nums[0]
+    var right = nums.length - 1
+    var left = 0
+    var mid = Math.floor(left + (right - left) / 2)
+    if (nums[right] > nums[left]) {
+        return nums[left]
+    }
+    while (right >= left) {
+        mid = Math.floor(left + (right - left) / 2)
+        if (nums[mid] > nums[mid + 1]) {
+             return nums[mid + 1]
+        }
+        if (nums[mid - 1] > nums[mid]) {
+            return nums[mid]
+        }
+        if (nums[mid] > nums[left]) {
+            left = mid + 1
+        } else {
+            right = mid - 1
+        } 
+    }
+};
+
+/*
+This problem specifically asks you to "You must write an algorithm that runs in O(log n) time."
+This means that a one full itteration of nums[] cannot be done. Hence sortting should not be used. 
+O(log n) complexity give us hint that something like binary search should be used. 
+To make a simple binary search algorithm we need three components here. left, mid, and right. 
+Left and right acts as extreme boundarys and mid acts as the mid point of left and right. 
+We check if nums[right] > nums[left], which would mean the array is already perfectly sorted. 
+If not we check if the mid point is the lowest number of the nums [] by comparing nums[mid] to nums[mid - 1] and nums[mid + 1]. 
+If any of these are inflection point. which means highest or lowest numers in nums[], which know which one would be "the minimum element of this array".
+If there no on inflection point around mid, then change boundary accoringly to make the next guess. 
+If nums[mid] > nums[left], this means "the minimum element of this array" should be located right to the midpoint so set a new left as mid + 1.
+If nums[mid] < nums[left], this means "the minimum element of this array" should be located left to the midpoint so set a new right as mid - 1.
+
+*/
+
