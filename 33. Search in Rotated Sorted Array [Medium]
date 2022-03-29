@@ -1,0 +1,41 @@
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var search = function(nums, target) {
+    var right = nums.length - 1
+    var left = 0
+    var mid = Math.floor(left + (right - left) / 2)
+    while (right >= left) {
+        mid = Math.floor(left + (right - left) / 2)
+        if (nums[left] == target) return left
+        if (nums[right] == target) return right
+        if (nums[mid] == target) return mid
+        if (nums[mid] >= nums[left]) {
+            // pivot is on left side of mid
+            if (target < nums[mid] && target > nums[left]) {
+                // target is in non-rotated subarray
+                right = mid - 1
+            } else {
+                left = mid + 1
+            } 
+        } else {
+            // pivot is on right side of mid
+            if (target > nums[mid] && target < nums[right]) {
+                // target is in non-rotated subarray
+                left = mid + 1
+            } else {
+                right = mid - 1
+            }
+        }
+        
+    }
+    return -1
+};
+
+/*
+Use binary search algorithm to guess where target is using mid and see if target is left or right to the mid (guess value). 
+Importantt concept to note in this problem is that there exist a pivot point where the rotation occurs. 
+This break binary search to two cases where target is in the rotated subarray (contains pivot) or target is in the non-rotated subarray (does not contain poivot)
+*/
