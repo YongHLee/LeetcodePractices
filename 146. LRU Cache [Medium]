@@ -1,0 +1,59 @@
+/**
+ * @param {number} capacity
+ */
+var LRUCache = function(capacity) {
+    this.cachedData = new Map()
+    this.capacity = capacity
+};
+
+/** 
+ * @param {number} key
+ * @return {number}
+ */
+LRUCache.prototype.get = function(key) {
+    let retrivedData = this.cachedData.get(key)
+    if (retrivedData !== undefined) {
+        this.cachedData.delete(key)
+        this.cachedData.set(key, retrivedData)
+        return retrivedData
+    }
+    return -1
+};
+
+/** 
+ * @param {number} key 
+ * @param {number} value
+ * @return {void}
+ */
+LRUCache.prototype.put = function(key, value) {
+    let retrivedData = this.cachedData.get(key)
+    if (retrivedData == undefined && this.cachedData.size >= this.capacity) {
+        // const [firstKey] = this.cachedData.keys();
+        this.cachedData.delete(this.cachedData.keys().next().value)
+        this.cachedData.set(key, value)
+    } else {
+        this.cachedData.delete(key)
+        this.cachedData.set(key, value)
+    }
+};
+
+/*
+This problem is fairly simple if you understand how "Least Recently Used (LRU) cache" works. 
+LRU has a set of rules and you just need to define them in the solution. 
+1. If you get a key-value pair and it already exists, the pair gets used and you need to update how recently it was used by 
+putting this pair at the end of ordered map to note its recently used status
+2. If you are putting a key-value pair into the cache and cache size limit has been reached, you delete in first element in the map,
+which means least recently used, and put the new key-value pair at the end of ordered map.
+3. For all other cases (cache limit not reached or key is already in cache), delete the existing key-value pair and update it by putting the pair 
+at the end of the ordered map. 
+*/
+
+/** 
+ * Your LRUCache object will be instantiated and called as such:
+ * var obj = new LRUCache(capacity)
+ * var param_1 = obj.get(key)
+ * obj.put(key,value)
+ */
+ 
+ 
+ 
