@@ -1,0 +1,28 @@
+/**
+ * @param {number[][]} intervals
+ * @return {number[][]}
+ */
+var merge = function(intervals) {
+    if(intervals.length <= 1) return intervals;
+    // sort the array by earlier start time
+    intervals = intervals.sort((a,b) => a[0] - b[0])
+    let output = [intervals[0]];
+    // define the begining of ordered intervals
+    let current = output[0];
+    // define first start time
+
+    for(let i = 1; i< intervals.length;i++) {
+        const next = intervals[i]
+        if(current[1] >= next[0]) {
+            // compare end time of current interval and start time of next interval. 
+            // if current end time > next start time, there is an overlap
+            current[1] = Math.max(current[1], next[1]);
+            // choose later end time as the end time of merged interval
+        } else {
+            current = next;
+            output.push(current);
+            // if there is no overlap, push the interval to answer.
+        }
+    }
+    return output;
+};
