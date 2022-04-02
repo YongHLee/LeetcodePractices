@@ -1,0 +1,40 @@
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} low
+ * @param {number} high
+ * @return {number}
+ */
+var rangeSumBST = function(root, low, high) {
+    var sum = 0
+    if(!root) return sum
+    if (root.val >= low && root.val <= high) {
+        sum += root.val
+    } 
+    if (root.left !== null && root.val >= low) {
+        sum += rangeSumBST(root.left, low, high)
+    }
+    if (root.right !== null && root.val <= high) {
+        sum += rangeSumBST(root.right, low, high)
+    }
+    return sum
+};
+
+/*
+Note that binary tree node has the following properties. 
+1. The left subtree of a node contains only nodes with keys lesser than the node’s key.
+2. The right subtree of a node contains only nodes with keys greater than the node’s key.
+3. The left and right subtree each must also be a binary search tree.
+
+Knowing these properties, we can sat that if rrot value is both root.val >= low and root.val <= high, we want to evaluate both leftt and right side 
+since both side have possibilites to be valid node within the range. If root.val < low, we are only interested in evaluating right node because left 
+node will for sure be less than lower limit of the range. Likewise, root.val > high, we are only interested in evaluating left node because right 
+node will for sure be greator than high limit of the range
+*/
