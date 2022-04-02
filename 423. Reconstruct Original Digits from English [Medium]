@@ -1,0 +1,40 @@
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var originalDigits = function(s) {
+    var count = new Array(10).fill(0)
+    for (let i = 0; i < s.length; i++){
+        let c = s.charAt(i);
+        if (c == 'z') count[0]++;
+        if (c == 'w') count[2]++;
+        if (c == 'x') count[6]++;
+        if (c == 's') count[7]++; //7-6
+        if (c == 'g') count[8]++;
+        if (c == 'u') count[4]++; 
+        if (c == 'f') count[5]++; //5-4
+        if (c == 'h') count[3]++; //3-8
+        if (c == 'i') count[9]++; //9-8-5-6
+        if (c == 'o') count[1]++; //1-0-2-4
+    }
+    count[7] -= count[6];
+    count[5] -= count[4];
+    count[3] -= count[8];
+    count[9] = count[9] - count[8] - count[5] - count[6];
+    count[1] = count[1] - count[0] - count[2] - count[4];
+    var numericString = ""
+    for (let i = 0; i <= 9; i++){
+        for (let j = 1; j <= count[i]; j++){
+            numericString += i.toString()
+        }
+    }
+    return numericString
+};
+
+/*
+This problem is like a puzzle. The pattern you want to see as soon as possible is that some of the digits when written in English have unique letters. 
+For example, 0 is written as "zero" and letter z is a unique letter to 0. Even if the letter isn't unique, we can assume that a letter is unique to
+the number and subtract occurnaces of other numbers containing the letter. Once this is done, you should have an array that shows how many time each 
+numer occurered in the out of order English string. Use this array to populate numeric string starting with zero to ensure the digits are in 
+ascending order as required by the problem. 
+ */
