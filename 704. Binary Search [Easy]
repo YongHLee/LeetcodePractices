@@ -1,0 +1,32 @@
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var search = function(nums, target) {
+    var left, right, mid, ans
+    left = 0
+    right = nums.length - 1
+    ans = -1
+    while (left <= right) {
+        mid = Math.floor((right + left)/2)
+        if (nums[mid] == target) {
+            ans =  mid
+            break
+        }
+        if (nums[mid] > target) right = mid - 1
+        if (nums[mid] < target) left = mid + 1
+    }
+    return ans
+};
+
+/*
+This is most elementary binary search problem. 
+We want to defined left (or start), right (or end), and mid of the binary search range. 
+Until mid we choose is the target number, we want to keep choosing new mid. Mid is defined as average of left and right. 
+Since the array is ordered, if the target is less than mid, target should be located left to the current mid. 
+Therefore set right as  mid - 1 and calculate new mid. 
+if the target is greator than mid, target should be located right to the current mid. 
+Therefore set left as  mid - 1 and calculate new mid. 
+Keep interating until mid == target
+ */
