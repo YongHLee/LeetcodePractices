@@ -1,0 +1,30 @@
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var countBinarySubstrings = function(s) {
+    var previous = 0, current = 1
+    var ans = 0
+    for (let i = 0; i < s.length - 1; i++) {
+        if (s[i] !== s[i+1]) {
+            ans += Math.min(previous, current)
+            previous = current
+            current = 1
+        } else {
+            current += 1
+        }
+    }
+    return ans + Math.min(previous, current)
+};
+
+/*
+Because we only care for "all the 0's and all the 1's in these substrings are grouped consecutively", what really matters is the point that string changes 
+it's value (0 to 1 or 1 to 0). We can store state of previous group of value and current group of value. We don't really care what each group's value is,
+because we know they are alternating and results in substring. 
+It is important to note that 1110000 will result in 3 binary substrings. This tells us we can compare size of the consecutive groups and take the size of 
+the smaller group and it will give us number of binary sunstring. 
+Then we can iterate though the string and store previous and current group state. When there is a switch in group value, compare the two groups, set 
+previous group as current group and set current group as 1. If there was no switch in group value, just add 1 to current group's size. 
+
+Answer should be iterated value plus last group size comparison because it does not happen in the for loop due to no change in group value. 
+ */
