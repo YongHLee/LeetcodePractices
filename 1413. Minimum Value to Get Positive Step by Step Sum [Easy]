@@ -1,0 +1,24 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minStartValue = function(nums) {
+    var minSum = nums[0]
+    var startValue
+    for (let i = 1; i < nums.length; i++) {
+        nums[i] = nums[i] + nums[i-1]
+        minSum = Math.min(minSum, nums[i])
+    }
+    startValue = -1 * minSum + 1
+    if (startValue <= 0) {
+        return 1
+    }
+    return -1 * minSum + 1
+};
+
+/*
+Since we are calculatitng for "minimum positive value of startValue such that the step by step sum is never less than 1", we only care for startValue 
+that is greator or equal to 1 when added to step by step sum of each element in nums[].
+This means startValue = -1 * minSum + 1 (+1 for ensuring step by step sum added to startValue will be always equal or greator than 1). 
+And finally place a conditional statement to startValue = 1 if calculated startValue is not a positive value. 
+ */
