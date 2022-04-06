@@ -40,3 +40,23 @@ In this case, set new right and calculate new mid.
 If isBadVersion(mid) is false, this mens the first bad version lies somewhere right to mid. In this case, set new left and calculate new mid. 
  */
  
+// Better solution
+var solution = function(isBadVersion) {
+    /**
+     * @param {integer} n Total versions
+     * @return {integer} The first bad version
+     */
+    
+    return function(n) {
+        var left = 1, right = n, mid 
+        while (left < right) {
+            mid = Math.floor(left+((right-left)/2))
+            if (isBadVersion(mid)) {
+                right = mid
+            } else {
+                left = mid + 1
+            }
+        }
+        return left
+    };
+};
