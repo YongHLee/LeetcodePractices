@@ -1,0 +1,61 @@
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+
+//Iterative Approach
+var isPalindrome = function(head) {
+    let headArray = []
+    let headCopy = head
+    for (let i = 0; head !==null; i++ ) {
+        headArray[i] = head.val
+        head = head.next
+    }
+    let midpoint = Math.floor(headArray.length/2)
+    for (let i = headArray.length -1; i >= midpoint; i-- ) {
+        // console.log(headArray[i], headCopy.val)
+         if (headArray[i] !== headCopy.val) {
+             return false
+         } else {
+            headCopy = headCopy.next
+         }  
+    }
+    return true
+};
+
+/*
+Iterative approach is pretty simple to understand. We want to iterrate though the listNode once and record the values in an array []. 
+Once this is done, iterate though the listNode one more time and compare current node value to traversed array value and see if those values match. 
+If they match until the mid-point, the listNode is palindrome.
+ */
+
+// Resursive Approach
+var isPalindrome = function(head) {
+    var frontPointer = head
+    function recursiveCheck(currentNode) {
+        if (currentNode !== null) {
+            if (!recursiveCheck(currentNode.next)) return false
+            if (currentNode.val !== frontPointer.val) return false;
+            frontPointer = frontPointer.next;
+        }
+        return true      
+    }
+    return recursiveCheck(head)
+};
+
+/*
+Recursive approach is more complex than the iterative approach. We want to the the property of listNode that at the end pof node, listNode.next is null. 
+This means we can use recursive function to get to the last node and trigger comparison of last node and first node values. To do this, we make a 
+function named recursiveCheck which has a listNode as parameter. This function will check if current node is null (which checks if we have reached the 
+last node). If we are not at the last node, we call recursiveCheck recursively with currentNode.next as parameter, effectively evaluating the next node.
+If we have reached the last node return true to invoke previously called function to see if currentNode value matches front pointer node. If there is 
+a match, we will move on to prreviously invoked recursive function which will compare second to the last node and second node and so on. If all
+recursiveCheck function returns true, the list Node is pallindrome.
+ */
