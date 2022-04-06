@@ -1,0 +1,22 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function(nums) {
+    var maxSubarraySum = nums[0]
+    var subarraySum = nums[0]
+    for (let i = 1; i < nums.length; i++) {
+        subarraySum = Math.max(subarraySum + nums[i], nums[i])
+        maxSubarraySum = Math.max(maxSubarraySum, subarraySum)
+    }
+    return maxSubarraySum
+};
+
+/*
+You want to compare current subarray sum and current subarray sum + next subarray sum (which is just one element subarray) combined. 
+If the combined value is greator, this means your sum is increasing and you want to include the next subarray sum. 
+If the next subarray sum is greator, this means your current subarray sum is not a good candiate for maximum subarray sum and 
+you should start a new subarray sum with the next subarray sum.  
+After this comparison, determine the maximum subarray sum by comparing stored maximum subarray sum and current subarray sum. 
+Once you iterate through the array you should be left with maximum subarray sum. 
+*/
