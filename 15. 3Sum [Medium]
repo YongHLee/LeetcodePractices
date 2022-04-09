@@ -1,0 +1,78 @@
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+ 
+// Hashmap Method
+var threeSum = function(nums) {
+    var ans = []
+    nums.sort((a,b)=>a-b)
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] !== nums[i-1]) {
+            twoSum(i, nums, ans)
+        }
+    }
+    return ans
+};
+
+var twoSum = function(i, nums, ans) { 
+    var seen = new Map()
+    for (let j = i + 1; j < nums.length; j++) {
+        var target = -nums[i] - nums[j]
+        if(seen.has(target)) {
+            ans.push([nums[i], nums[j], target])
+            while (nums[j] == nums[j + 1]) {
+                ++j;
+            } 
+        }
+    seen.set(nums[j])
+    }
+}
+/*
+For the hashmap method, we want to use hashmap to create map of values in array. You can simplify three sum problem into two sum problem by iterating
+through nums[] array while holding ith element constant. Since nums[i] + nums[j] + nums[k] = 0, we cna rearrange this into nums[k] = -nums[i] - nums[j].
+First, make sure to sort array so that duplicate values are adjecent to each other. This will make skipping duplicate values quicker.
+Using this information, iterate through j, and if target (nums[k]) already exists in seen Map, we can conclude target value exist and triple exist for 
+[nums[i], nums[j], target]. Make sure to put approprite conditional statements to prevent duplicate value of nums[i] and nums[j].
+ */
+
+//Two Pointer Method
+var threeSum = function(nums) {
+    var ans = []
+    nums.sort((a,b)=>a-b)
+    for (let i = 0; i < nums.length; i++) {
+        if (i == 0 || nums[i] !== nums[i-1]) {
+            twoSum(nums, i, ans)
+        }
+    }
+    return ans
+}
+
+var twoSum = function(nums, i , ans) {
+    var left = i + 1
+    var right = nums.length - 1
+    while (left < right) {
+        sum = nums[i] + nums[left] + nums[right]
+        if (sum > 0) {
+            --right
+        } else if (sum < 0) {
+            ++left
+        } else if (sum == 0) {
+            ans.push([nums[i], nums[left++], nums[right--])
+            while (left < right && nums[left] == nums[left - 1]) {
+                ++left
+            }
+        } 
+    }
+}
+/*
+For the two pointer method, we are calling a two some function to find the pair that will equal to -nums[i] which can be arranged into 
+0 = nums[i] + nums[left] + nums[right]. First establish correct sttarting boundary for left and right. We iterate through nums[] array and 
+check if the sum of nums[i] + nums[left] + nums[right] is equal to 0. If sum > 0, this means nums[right] is too high so we decrease right incrementally.
+If sum < 0, this means nums[left] is too low so we increase leftt incrementally. Run this logic in a while loop. Once we reach the case where sum == 0,
+we can add the triple [nums[i], nums[left], nums[right]] to the answer. Once this is done, increase left incrementally and decrease right incrementally 
+to prevent duplicate triples. 
+
+ */
+
+
