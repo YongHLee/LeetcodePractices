@@ -1,0 +1,32 @@
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var topKFrequent = function(nums, k) {
+    const numsMap = new Map()
+    var numsFreqArray = []
+    var ans = []
+    for (let i = 0; i < nums.length; i++) {
+        let freq = numsMap.get(nums[i])
+        if (freq == undefined) {
+            numsMap.set(nums[i], 1)
+        } else {
+            numsMap.set(nums[i], freq + 1)
+        }
+    }
+    for (const [key, value] of numsMap.entries()) {
+         numsFreqArray.push([key, value])
+    }
+    numsFreqArray.sort((a,b)=>(b[1]-a[1]))
+    for (let i = 0; i < k; i++) {
+        ans.push(numsFreqArray[i][0])
+    }
+    return ans
+};
+
+/*
+First we want to make a map of each element's frequency in nums[]. Iterate through nums[] and add count to numsMap. Once this is done, iterate through
+numsMap and push [key, value], which is value in nums[] and its frequency, to numsFreqArray. Sort this array by frequency (element with index of 1). 
+Once this is done, retrieve k numbers of numsFreqArray[i][0] to find k most frequent values in nums[].
+ */
