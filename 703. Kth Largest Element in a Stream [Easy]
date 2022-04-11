@@ -1,0 +1,75 @@
+/**
+ * @param {number} k
+ * @param {number[]} nums
+ */
+var KthLargest = function(k, nums) {
+    this.streamArray = nums.sort((a,b)=>b-a)
+    this.k = k
+};
+
+/** 
+ * @param {number} val
+ * @return {number}
+ */
+KthLargest.prototype.add = function(val) {
+    var left = 0
+    var right = this.streamArray.length - 1
+    while (right >= left) {
+        var mid = Math.floor((right + left)/2)
+        if (this.streamArray[mid] > val) {
+            left = mid +1
+        } else if (this.streamArray[mid] < val) {
+            right = mid - 1
+        } else {
+            left = mid
+            break
+        }
+    }
+    this.streamArray.splice(left, 0 , val)
+    this.streamArray.splice(this.k)
+    return this.streamArray[this.k-1]
+};
+
+/** 
+ * Your KthLargest object will be instantiated and called as such:
+ * var obj = new KthLargest(k, nums)
+ * var param_1 = obj.add(val)
+ */
+
+ /*
+ This problem is extremely simple and easy if you use priority queue. Since JS does not support natively support priority queue,
+ this problem can be solved by ordering array. Insert the "add" value into the array in the right place in the ordered array. Then retrieve answer
+ for kth largest element. 
+ 
+ You can do this by using sort but this would mean the time complexity of m (number of calls made) * k log k. 
+ In order to make this more efficient, instead of sorting for every m, you can use binary search to make time complexity m * log k. 
+ Once the KthLargest object is initiated, sort nums[] to decreasing order. This will ensure largest element in front of array and non-essential
+ elements to be spliced easily (splicing end of array use less memory because there is no shifting). 
+ Implement the usual binary search algorithm. Once this portion figures out where the new "add" value belongs in the ordered array, 
+ insert the new value then splice the end of array that has index >= k. 
+ 
+ 
+ See below for sort implementation. 
+ */
+ 
+ 
+ 
+ /**
+ * @param {number} k
+ * @param {number[]} nums
+ */
+var KthLargest = function(k, nums) {
+    this.streamArray = nums.sort((a,b)=>b-a)
+    this.k = k
+};
+
+/** 
+ * @param {number} val
+ * @return {number}
+ */
+KthLargest.prototype.add = function(val) {
+    this.streamArray.splice(this.k)
+    this.streamArray.push(val)
+    this.streamArray.sort((a,b)=>b-a)
+    return this.streamArray[this.k-1]
+};
