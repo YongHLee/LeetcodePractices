@@ -1,0 +1,38 @@
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var addTwoNumbers = function(l1, l2) {
+    var l1Str = '', l2Str = ''
+    var ansNode = new ListNode(0)
+    
+    var headOfAnsNode = ansNode
+    while (l1 !== null) {
+        l1Str = l1.val.toString() + l1Str
+        l1 = l1.next
+    }
+    while (l2 !== null) {
+        l2Str = l2.val.toString() + l2Str
+        l2 = l2.next
+    }
+    var ansStr =  (BigInt(l1Str) + BigInt(l2Str)).toString()
+    for (let i = 0; i < ansStr.length; i++) {
+        ansNode.next = new ListNode(BigInt(ansStr[ansStr.length - 1 - i]))
+        ansNode = ansNode.next
+    }
+
+    return headOfAnsNode.next
+};
+
+/*
+We can solve this problem by first converting listNodes into strings (right order, not reversed) then converting those strings into BigInt so they 
+can be added. Once added value is calculated, we can convert this into string which then can be converted into listNode value index by index. 
+ */
