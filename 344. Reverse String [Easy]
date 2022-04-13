@@ -1,0 +1,19 @@
+/**
+ * @param {character[]} s
+ * @return {void} Do not return anything, modify s in-place instead.
+ */
+var reverseString = function(s) {
+    var left = s[0]
+    var right = s[s.length-1]
+    for (let i = 0; i < Math.floor((s.length)/2); i++) {
+        s[i] = right
+        s[s.length-1-i] = left
+        left = s[i+1]
+        right = s[s.length-1-i-1]
+    }
+    return s
+};
+
+/*
+To conserve space complexity of O(1), keep the values of two pointers and iterate until the middle of the string.
+ */
