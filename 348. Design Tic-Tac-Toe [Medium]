@@ -1,0 +1,55 @@
+/**
+ * @param {number} n
+ */
+var TicTacToe = function(n) {
+    this.n = n
+    this.rowTracker = new Array(this.n).fill(0)
+    this.colTracker = new Array(this.n).fill(0)
+    this.leftDiagTracker = 0
+    this.rightDiagTracker = 0
+};
+
+/** 
+ * @param {number} row 
+ * @param {number} col 
+ * @param {number} player
+ * @return {number}
+ */
+TicTacToe.prototype.move = function(row, col, player) {
+    // Board size = n * n
+    if (player === 2) {
+        player = -1
+    }
+    // row tracking
+    for (let i = 0; i < this.n; i++) {
+        if (row === i) this.rowTracker[i] += player
+    }
+    // column tracking
+    for (let i = 0; i < this.n; i++) {
+        if (col === i) this.colTracker[i] += player
+    }
+    // diagonal tracking
+    if (row === col) this.leftDiagTracker += player
+    if (row + col === this.n - 1) this.rightDiagTracker += player
+    
+    // check if a player wins
+    if (this.leftDiagTracker === this.n || this.rightDiagTracker === this.n) return 1
+    if (this.leftDiagTracker === -this.n || this.rightDiagTracker === -this.n) return 2
+    for (let j = 0; j <= this.n - 1; j++) {
+        if (this.rowTracker[j] === this.n || this.colTracker[j] === this.n) return 1
+        if (this.rowTracker[j] === -this.n || this.colTracker[j] === -this.n) return 2
+    }
+    return 0
+};
+
+/** 
+ * Your TicTacToe object will be instantiated and called as such:
+ * var obj = new TicTacToe(n)
+ * var param_1 = obj.move(row,col,player)
+ */
+ 
+ /*
+ This problem is not much different from "1275. Find Winner on a Tic Tac Toe Game". Logic is the same with function params being in different format. 
+ Modify answer from 1275 a bit to fit into this question. 
+ */
+ 
