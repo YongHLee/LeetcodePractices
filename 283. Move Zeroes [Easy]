@@ -1,0 +1,26 @@
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var moveZeroes = function(nums) {
+    var nonZeroIndex = 0
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] !== 0) {
+            nums[nonZeroIndex] = nums[i]
+            nonZeroIndex++
+        }
+    }
+    for (let i = nonZeroIndex; i < nums.length; i++) {
+        nums[i] = 0
+    }
+    return nums
+};
+
+/*
+Since we want to solve this in-place without making a copy of the array, original array should be rearranged to preserve space complexity. 
+Since we want to move all zeros toward the end of the array, we move non-zero elements to front of array first. Make sure to have index tracker 
+variables to count how many non-zero elements are encountered. Once you encounter a non-zero element, move the element to index of nonZeroIndex 
+and add one to nonZeroIndex. Once you have iterated through the entire array, nonZeroIndex will act as starting index of all moved zeros. 
+Iterate from this idenx and add zeros to all remaining elements since all non-zero elements are moved and you can assume all remaining elements 
+should be zeros. 
+ */
