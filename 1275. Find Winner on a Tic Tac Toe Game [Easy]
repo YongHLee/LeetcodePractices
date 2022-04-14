@@ -1,0 +1,101 @@
+/**
+ * @param {number[][]} moves
+ * @return {string}
+ */
+var tictactoe = function(moves) {
+    var n = 3
+    // Board size = n * n
+    var rowOfA, rowOfB, colOfA, colOfB, leftDiagOfA, leftDiagOfB, rightDiagOfA, rightDiagOfB
+    rowOfA = [0,0,0], rowOfB = [0,0,0], colOfA = [0,0,0], colOfB  = [0,0,0]
+    rightDiagOfA = rightDiagOfB = leftDiagOfA = leftDiagOfB = 0
+    // let board = [[0,0,0],[0,0,0],[0,0,0]]
+    // for (let i = 0; i < moves.length; i++) {
+    //     if (i % 2 == 0) {
+    //         board[moves[i][0]][moves[i][1]] = 0
+    //     } else {
+    //         board[moves[i][0]][moves[i][1]] = 1
+    //     }
+    // }
+    for (let i = 0; i < moves.length; i++) {
+        if (i % 2 == 0) {
+            if (moves[i][0] == 0) ++rowOfA[0]
+            else if (moves[i][0] == 1) ++rowOfA[1]
+            else if (moves[i][0] == 2) ++rowOfA[2]
+            if (moves[i][1] == 0) ++colOfA[0]
+            else if (moves[i][1] == 1) ++colOfA[1]
+            else if (moves[i][1] == 2) ++colOfA[2]
+            if (moves[i][0] == moves[i][1]) ++leftDiagOfA 
+            if (moves[i][0] + moves[i][1] == 2) ++rightDiagOfA 
+        } else {
+            if (moves[i][0] == 0) ++rowOfB[0]
+            else if (moves[i][0] == 1) ++rowOfB[1]
+            else if (moves[i][0] == 2) ++rowOfB[2]
+            if (moves[i][1] == 0) ++colOfB[0]
+            else if (moves[i][1] == 1) ++colOfB[1]
+            else if (moves[i][1] == 2) ++colOfB[2]
+            if (moves[i][0] == moves[i][1]) ++leftDiagOfB
+            if (moves[i][0] + moves[i][1] == 2) ++rightDiagOfB 
+        }
+        if (leftDiagOfA == n || rightDiagOfA == n) return "A"
+        if (leftDiagOfB == n || rightDiagOfB == n) return "B"
+        for (let j = 0; j <= 2; j++) {
+            if (rowOfA[j] == n) return "A"
+            if (rowOfB[j] == n) return "B"
+            if (colOfA[j] == n) return "A"
+            if (colOfB[j] == n) return "B"
+        }
+    }
+    if (moves.length < n * n) return "Pending"
+    else return "Draw"
+};
+
+/*
+For this problem we want to find the winner of tic-tac-toe. TO do this we need to define the conditions of winning first. A player wins the game
+if the player can connect three characters in the entire row, column or diagonals (full length of the board). From this information, we can see that
+we don't really need to track the whole board (even though we can). The brute force method would be simulate the board and see if conditions are met
+after every single move. Instead we can track numbers of player's characters in each row, column, and diagonal. If the winning conditions are met for
+a player after move, return that player's name. If the game ends with no player winning, return "Draw". If the game ended but the board is not pull and
+there is no winner, return "Pending". 
+
+In this implementation, I've created row, column, and diagonal tracker variables for each player. But after solving this problem, I've realized that
+I can decrease amount of code and variables by having one set of variables for both players but assign different value for each player. By assigning
+player A with value of 1 and player B with value of -1, I can just check if tracker variable reaches 3 or -3. 
+See the implemntation below. 
+ */
+ 
+ /**
+ * @param {number[][]} moves
+ * @return {string}
+ */
+var tictactoe = function(moves) {
+    var n = 3
+    // Board size = n * n
+    var rowTracker = new Array(n).fill(0), colTracker = new Array(n).fill(0)
+    var leftDiagTracker = 0, rightDiagTracker = 0
+    var player = 1
+
+    for (let i = 0; i < moves.length; i++) {
+        // row tracking
+        for (let j = 0; j < n; j++) {
+          if (moves[i][0] === j) rowTracker[j] += player
+        }
+        // column tracking
+        for (let j = 0; j < n; j++) {
+          if (moves[i][1] === j) colTracker[j] += player
+        }
+        // diagonal tracking
+        if (moves[i][0] == moves[i][1]) leftDiagTracker += player
+        if (moves[i][0] + moves[i][1] == n - 1) rightDiagTracker += player
+        // check if a player wins
+        if (leftDiagTracker == n || rightDiagTracker == n) return "A"
+        if (leftDiagTracker == -n || rightDiagTracker == -n) return "B"
+        for (let j = 0; j < n; j++) {
+            if (rowTracker[j] == n || colTracker[j] == n) return "A"
+            if (rowTracker[j] == -n || colTracker[j] == -n) return "B"
+        }
+        player *= -1
+    }
+    if (moves.length < n * n) return "Pending"
+    else return "Draw"
+};
+ 
