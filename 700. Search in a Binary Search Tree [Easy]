@@ -1,0 +1,24 @@
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} val
+ * @return {TreeNode}
+ */
+var searchBST = function(root, val) {
+    if (root === null) return null
+    if (val === root.val)  return root
+    return  val < root.val ? searchBST(root.left, val) : searchBST(root.right, val)
+};
+
+/*
+This is the most simple form of binary tree search problen. We can use recursive function to search on the left side of tree if val < root.val and
+the right side if val > root.val until val === root.val is found. When val === root.val is found, return root.  If val === root.val not found and 
+the tree runs out of node to search, this means that val does not exist in the binary tree so return null. 
+ */
