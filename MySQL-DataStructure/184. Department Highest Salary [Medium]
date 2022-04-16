@@ -1,0 +1,16 @@
+select Department.name as 'Department', Employee.name as 'Employee', salary as Salary
+from Employee
+join  Department on departmentId = Department.id
+where (departmentId, salary) in (
+    select departmentId, MAX(salary)
+    from Employee
+    group by departmentId
+   
+)
+
+/*
+We want to "Write an SQL query to find employees who have the highest salary in each of the departments." 
+This means we need to SELECT from Employee and join Department on departmentId = Department.id. Once this is done, we want to make sure to choose
+employee with highest salary of each department. Use "in" clause to choose departmentId and salary in list of departmentId and maximum salary of
+department. You can query departmentId and maximum salary by using MAX() and grouping by departmentId.
+*/
