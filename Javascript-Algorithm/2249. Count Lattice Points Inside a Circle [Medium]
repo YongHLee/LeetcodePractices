@@ -1,0 +1,30 @@
+/**
+ * @param {number[][]} circles
+ * @return {number}
+ */
+/*
+Think about what circle is. the max distance between focal pt of circle and outer boundary is r. 
+Distance between two pt are (x2 - x1)^2 + (y2 - y1)^2 = r^2 by pythagorean theorm. 
+sqrt((x2 - x1)^2 + (y2 - y1)^2) = r
+For for all pts that have distance less than sqrt((x2 - x1)^2 + (y2 - y1)^2), we can consider lattice pt
+Optimize the solution by not using JSON.stringify(), write out the sting. 
+ */
+var countLatticePoints = function(circles) {
+    var arrayMap = new Map()
+    for (let i = 0; i < circles.length; i++) {
+        var x = circles[i][0]
+        var y = circles[i][1]
+        var r = circles[i][2]
+        for (let j = -r; j <= r; j++) {
+            for (let k = -r; k <= r; k++) {
+                let distance = Math.sqrt(Math.pow(j,2) + Math.pow(k,2))
+                if (distance <= r) {
+                    let xPt = x + j
+                    let yPt = y + k
+                    arrayMap.set(`[${xPt},${yPt}]`, 1)
+                } 
+            }
+        }
+    }
+    return arrayMap.size
+};
