@@ -1,0 +1,61 @@
+
+var UndergroundSystem = function() {
+    this.checkInMap = new Map()
+    this.checkOutMap = new Map()
+    this.avgTimeMap = new Map()
+};
+
+/** 
+ * @param {number} id 
+ * @param {string} stationName 
+ * @param {number} t
+ * @return {void}
+ */
+UndergroundSystem.prototype.checkIn = function(id, stationName, t) {
+    this.checkInMap.set(id, [id, stationName, t])
+};
+
+/** 
+ * @param {number} id 
+ * @param {string} stationName 
+ * @param {number} t
+ * @return {void}
+ */
+UndergroundSystem.prototype.checkOut = function(id, stationName, t) {
+    this.checkOutMap.set(id, [id, stationName, t])
+    let checkInInfo = this.checkInMap.get(id)
+    let checkOutInfo = this.checkOutMap.get(id)
+    let travelTime = checkOutInfo[2] - checkInInfo[2]
+    
+    let route = JSON.stringify([checkInInfo[1], checkOutInfo[1]])
+    if (this.avgTimeMap.get(route) === undefined) {
+        this.avgTimeMap.set(route, [ travelTime, 1])
+    } else {
+        let avgTimeInfo = this.avgTimeMap.get(route)
+        this.avgTimeMap.set(route, [avgTimeInfo[0] + travelTime, avgTimeInfo[1] + 1])
+    }
+};
+
+/** 
+ * @param {string} startStation 
+ * @param {string} endStation
+ * @return {number}
+ */
+UndergroundSystem.prototype.getAverageTime = function(startStation, endStation) {
+    let avgTimeInfo = this.avgTimeMap.get(JSON.stringify([startStation,endStation]))
+    return avgTimeInfo[0] / avgTimeInfo[1]
+};
+
+/** 
+ * Your UndergroundSystem object will be instantiated and called as such:
+ * var obj = new UndergroundSystem()
+ * obj.checkIn(id,stationName,t)
+ * obj.checkOut(id,stationName,t)
+ * var param_3 = obj.getAverageTime(startStation,endStation)
+ */
+ 
+ 
+ /*
+Make three maps, each representing checkin info, check out info, and average travel teim info. In avgTimeMap, store total travel times and total trips.
+Use this information to calculate average travel time.
+ */
