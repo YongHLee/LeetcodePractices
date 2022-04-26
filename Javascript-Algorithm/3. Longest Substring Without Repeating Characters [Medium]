@@ -1,0 +1,36 @@
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function(s) {
+    var subStrLength = 0
+    var letterFreq = new Map()
+    var isNonRepeat = true
+    for (let i = 0; i < s.length  ; i++) {
+        let currLetterFreq = letterFreq.get(s[i])
+        if (currLetterFreq === undefined) {
+            letterFreq.set(s[i], 1)
+        } else {
+            letterFreq.set(s[i], ++currLetterFreq)
+        }
+        for (const [key, value] of letterFreq.entries()) {
+            if (value > 1) {
+                let firstLetterFreq = letterFreq.get(s[i - subStrLength])
+                letterFreq.set(s[i - subStrLength], --firstLetterFreq)
+                isNonRepeat = false
+                break
+            }
+        }
+        if (isNonRepeat) ++subStrLength
+        else isNonRepeat = true
+    }
+    return subStrLength
+};
+
+/*
+We want to using sliding window technique to see if a repeating letter exist in our substring. First keep track of letters and their frequency in a map. 
+Each time we iterate though s[i], update the letter's frequency. Then we check if any letter is the letter frequency has > 1, which means there was a 
+repeated letter. If this happened, we need to slide the "sliding window" by one index. This involves removing the first element of the sliding window and 
+update the letter frequency map accordingly. first element of the sliding window is s[i - subStrLength]. 
+
+ */
