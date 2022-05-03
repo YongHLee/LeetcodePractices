@@ -1,0 +1,38 @@
+/**
+ * @param {number[]} cards
+ * @return {number}
+ */
+var minimumCardPickup = function(cards) {
+    const freqObj = {}
+    var minConsec = -1
+    var absSlidingWindow = cards.length - 1
+    var isThereMatch = false
+    for (let i = 0; i < cards.length; i++) {
+        freqObj[cards[i]] = freqObj[cards[i]] ? freqObj[cards[i]] + 1 : 1
+    }    
+    for (let i = 0; i < cards.length; i++) {
+        // console.log(freqObj[cards[i]])
+        if (freqObj[cards[i]] >= 2) {
+            let slidingWindow = 1
+            while (slidingWindow + i < cards.length && slidingWindow <= absSlidingWindow) {
+                if (cards[i] === cards[i + slidingWindow]) {
+                    isThereMatch = true
+                    if (slidingWindow < absSlidingWindow)  {
+                        absSlidingWindow = Math.min(slidingWindow, absSlidingWindow)
+                    }
+                break
+                }
+                ++slidingWindow
+            }  
+        }
+
+    }
+    return isThereMatch ? absSlidingWindow + 1 : -1
+};
+
+/**
+We use sliding window technique combined with greedy algorithm. First, we can make the problem filter out elements that doesn't have pair by using mapping. 
+This waym if you ecounter element that we know there is no pair, we ignore it. Once we see an element with pair, we iterate for next absSlidingWindow 
+elements. If a pair is found within absSlidingWindow, we can set slidingWindow as new absSlidingWindow. This sliding window will get smaller and smaller
+since we are looking for minimum consecutive cards. 
+ */
