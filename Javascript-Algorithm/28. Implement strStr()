@@ -1,0 +1,28 @@
+/**
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+var strStr = function(haystack, needle) {
+    var a = true
+    if (haystack.length < needle.length) return -1
+    for (let i = 0; i < haystack.length ; i++) {
+        if (haystack[i] === needle[0] && 
+            haystack[i + needle.length - 1] === needle[needle.length - 1]) {
+            for (let j = 0; j < needle.length / 2; j++) {
+                if (haystack[i + j] !== needle[j] || 
+                    haystack[i + needle.length - 1 - j] !== needle[needle.length - 1 - j]) {
+                    a = false
+                    break
+                }
+                if (j + 1 >= needle.length / 2) return i
+            }
+        }
+    }
+    return -1
+    
+};
+
+/*
+Pretty simple logic. You can reduce time complexity by half using two pointer method.
+ */
