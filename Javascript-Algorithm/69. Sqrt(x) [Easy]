@@ -1,0 +1,29 @@
+/**
+ * @param {number} x
+ * @return {number}
+ */
+var mySqrt = function(x) {
+    let maxNum = 2
+    for (i = 0; i < 31; i++) maxNum *= 2
+    let left = 0
+    let right = maxNum
+    while(left <= right) {
+        let mid = Math.floor((left + right) / 2)
+        if (mid * mid < x) left = mid + 1 
+        else if (mid * mid > x) right = mid - 1
+        else {
+            left = mid
+            break
+        }
+    }
+    let leftSq = left * left
+    if (leftSq < x) left = (left + 1)
+    else if (leftSq > x) left = (left - 1) 
+    else return left
+    return left
+};
+
+/**
+Use binary search to narrow down the number which is or 1 integer away from the answer. Then compare the sqrt value to x. This will result in logn 
+time complexity. 
+ */
