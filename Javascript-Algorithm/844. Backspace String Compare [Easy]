@@ -1,0 +1,29 @@
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var backspaceCompare = function(s, t) {
+    s = removeBackspace(s)
+    t = removeBackspace(t)
+    // console.log(s, t)
+    if (s === t) return true
+    else return false
+};
+
+var removeBackspace = function (string) {
+    var backspaceRemoved = []
+    for (let i = 0; i < string.length; i++) {
+        if (string[i] !== '#') {
+            backspaceRemoved += string[i]
+        } else if (string[i] === '#') {
+            backspaceRemoved = backspaceRemoved.slice(0, -1)
+        }
+    }
+    return backspaceRemoved
+}
+
+/**
+Iterate through each string. If elememt in strin is not #, add to backspaceRemoved string. If #, is encountered, use .slice to remove last indexed element. 
+This is equivalent to .pop(). Once the iteration is done, compare two strings. 
+ */
