@@ -1,0 +1,22 @@
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var sortArrayByParity = function(nums) {
+    var len = nums.length
+    var ans = new Array(len).fill(0)
+    var left = 0
+    var right = len - 1
+    for (let i = 0; i < len; i++) {
+        if (nums[i] % 2 === 0) {
+        ans[left] = nums[i]
+        ++left
+        } else {
+            ans[right] = nums[i]
+            --right
+        }
+    }
+    return ans
+};
+
+
