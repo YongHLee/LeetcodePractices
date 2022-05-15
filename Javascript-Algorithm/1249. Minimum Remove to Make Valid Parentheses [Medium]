@@ -1,0 +1,34 @@
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var minRemoveToMakeValid = function(s) {
+    var balance = 0
+    var stack = []
+    var counter = 0
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] === "(") {
+            balance += 1
+            counter++
+        } else if (s[i] === ")") {
+            balance -= 1
+        }
+        if (balance >= 0) stack.push(s[i])
+        else balance ++
+
+    }
+    s = []
+    var toKeep = counter - balance
+    for (let i = 0; i < stack.length; i++) {
+        if (stack[i] === "(") toKeep--
+        if (toKeep < 0) toKeep++
+        else s.push(stack[i])
+    }
+    return s.join('')
+};
+
+/**
+Most importantt concept in this problem is keep a the balance of '(' and ')' by assigning 1 and -1 to each. This way if balance value < 0, we know 
+there is extra ')' and we should not include it in the final answer. Once you have excluded extra ')' we should have 'balance' value >= 0. Make another
+pass on the string to remove extra '(' this time. 
+ */
