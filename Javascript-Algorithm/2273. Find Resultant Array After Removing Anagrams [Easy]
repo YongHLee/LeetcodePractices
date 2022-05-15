@@ -1,0 +1,28 @@
+/**
+ * @param {string[]} words
+ * @return {string[]}
+ */
+var removeAnagrams = function(words) {
+    let copy = JSON.parse(JSON.stringify(words))
+    let ans = []
+    let indexStack = []
+    indexStack.push(0)
+
+    for (let i = 0; i < words.length; i++) {
+        words[i] = words[i].split('')
+        words[i] = words[i].sort()
+        if (i !== 0 && JSON.stringify(words[i]) !== JSON.stringify(words[i - 1])) {
+            indexStack.push(i)
+        }
+    }
+    for (let i = 0; i < indexStack.length; i++) {
+        ans.push(copy[indexStack[i]])
+    }
+    return ans
+};
+
+/**
+Once you sort each string by spliting into array and sorting, you can compare each array to the previous one. If they are same, you know the current
+array should not be in the final answer. If they are not, memorize the currrent index by pushing it to a stack. Once you have iterated through all words, 
+aggregate only words that are in indexStack. 
+ */
