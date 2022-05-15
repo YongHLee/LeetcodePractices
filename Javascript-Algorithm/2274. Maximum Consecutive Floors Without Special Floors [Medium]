@@ -1,0 +1,21 @@
+/**
+ * @param {number} bottom
+ * @param {number} top
+ * @param {number[]} special
+ * @return {number}
+ */
+var maxConsecutive = function(bottom, top, special) {
+    special.sort((a,b)=> a - b)
+    let botToSpecial = special[0] - bottom
+    let topToSpecial = top - special[special.length - 1]
+    let maxConsec = Math.max(botToSpecial, topToSpecial)
+    for (let i = 1; i < special.length; i++) {
+        maxConsec = Math.max(special[i] - special[i - 1] - 1, maxConsec)
+    }
+    return maxConsec 
+};
+
+/**
+ The main thing to note is that unless bottom or top floor themselves are speical floors, they count toward max consecutive non-special floors. 
+ Also not that consecutive non-special floors between special floor a and b is b - a - 1
+ */
