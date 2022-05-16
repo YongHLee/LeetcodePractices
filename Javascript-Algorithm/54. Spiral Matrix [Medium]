@@ -1,0 +1,33 @@
+/**
+ * @param {number[][]} matrix
+ * @return {number[]}
+ */
+var spiralOrder = function(matrix) {
+    let ans = []
+    let direction = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+    let i = 0, j = 0
+    let directionCunter = 0
+    while (matrix[i][j] !== 'x') {
+        ans.push(matrix[i][j])
+        matrix[i][j] = 'x'
+        i += direction[directionCunter][0]
+        j += direction[directionCunter][1]
+        // console.log(i,j, matrix[i][j])
+        if (matrix[i] === undefined || matrix[i][j] === undefined || matrix[i][j] === 'x') {
+            i -= direction[directionCunter][0]
+            j -= direction[directionCunter][1]
+            directionCunter++
+            if (directionCunter > 3) directionCunter = 0
+            i += direction[directionCunter][0]
+            j += direction[directionCunter][1]
+            if (matrix[i] === undefined || matrix[i][j] === undefined || matrix[i][j] === 'x') break
+        }
+    }
+    return ans
+};
+
+/**
+Note that the sprial order has four directions. You change direction when you are out of boundary or you run into previously visited element. 
+If this happens, change to next order direction and evaluate. If it needs another change of direction again right after a direction change, 
+it means the spiral has ended. 
+ */
