@@ -1,0 +1,33 @@
+/**
+ * @param {string} order
+ * @param {string} s
+ * @return {string}
+ */
+var customSortString = function(order, s) {
+    let sObj = {}
+    let ans = ''
+    for (let i = 0; i < s.length; i++) {
+        sObj[s[i]] ? sObj[s[i]] += 1 : sObj[s[i]] = 1
+    }
+    for (let i = 0; i < order.length; i++) {
+        if (sObj[order[i]] !== undefined && sObj[order[i]] > 0) {
+            while (sObj[order[i]] > 0) {
+                ans += order[i]
+                sObj[order[i]] -= 1
+            }
+        }
+    }
+    for (let [key, value] of Object.entries(sObj)) {
+        while (value > 0) {
+            ans += key
+            value--
+        }
+    }
+    return ans
+};
+
+/**
+We can create a new string with 'order' permutation considered by first mapping occurances of all character is s using hashmap. Then iterate through
+order and see if order[i] character exists in sObj. If it does, add those chracters to ans string and set the occurnace of that character to 0.
+Once you have iterated through order, 
+ */
