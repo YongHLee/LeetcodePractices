@@ -11,8 +11,6 @@ var deepestLeavesSum = function(root) {
         let node, curr_depth, nodeInfo
         curr_depth = stack.pop()
         node = stack.pop()
-        // node = nodeInfo[0]
-        // curr_depth = nodeInfo[1]
         if (node.left === null && node.right === null) {
             if (depth < curr_depth) {
                 deepestSum = node.val
