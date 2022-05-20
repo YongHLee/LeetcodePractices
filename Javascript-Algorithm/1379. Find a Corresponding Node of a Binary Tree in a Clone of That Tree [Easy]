@@ -1,0 +1,36 @@
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} original
+ * @param {TreeNode} cloned
+ * @param {TreeNode} target
+ * @return {TreeNode}
+ */
+
+var getTargetCopy = function(original, cloned, target) {
+    let cloneStack = [cloned]
+    let originalStack = [original]
+    
+    while (originalStack.length > 0) {
+        let cloneNode = cloneStack.pop()
+        let originalNode = originalStack.pop()
+        if (originalNode.left !== null) {
+            cloneStack.push(cloneNode.left)
+            originalStack.push(originalNode.left)
+        }
+        if (originalNode === target) {
+            return cloneNode
+        }
+        if (originalNode.right !== null) {
+
+            cloneStack.push(cloneNode.right)
+            originalStack.push(originalNode.right)
+        }
+        
+    }
+};
