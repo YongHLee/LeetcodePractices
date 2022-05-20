@@ -1,0 +1,46 @@
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+// Iterative
+// var lowestCommonAncestor = function(root, p, q) {
+//     let node = root
+//     let p_val = p.val
+//     let q_val = q.val
+//     while (node !== null) {
+//         if (p_val > node.val && q_val > node.val) {
+//             node = node.right
+//         } else if (p_val < node.val && q_val < node.val) {
+//             node = node.left
+//         } else {
+//             return node
+//         }
+//     }
+// };
+
+var lowestCommonAncestor = function(root, p, q) {
+    let p_val = p.val
+    let q_val = q.val
+        if (p_val > root.val && q_val > root.val) {
+            return lowestCommonAncestor(root.right, p, q)
+        } else if (p_val < root.val && q_val < root.val) {
+            return lowestCommonAncestor(root.left, p, q)
+        } else {
+            return root
+        }
+};
+
+/*
+Important concept to know is that the LCA (lowest common ancestor) for binary search tree occurs when there is a split in p and q from the current node. 
+If q lies on or left to current node and p lies on or right to the current node, we know there is a split and the LCA is current node. 
+ */
