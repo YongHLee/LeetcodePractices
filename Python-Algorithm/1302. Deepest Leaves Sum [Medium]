@@ -1,0 +1,53 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+# DFS
+class Solution:
+    def deepestLeavesSum(self, root: Optional[TreeNode]) -> int:
+        deepSum = 0
+        curr_depth = 0
+        depth = 0
+        stack = deque([root, 0])
+        while stack:
+            curr_depth = stack.pop()
+            node = stack.pop()
+            if node.left is None and node.right is None:
+                if curr_depth > depth:
+                    depth = curr_depth
+                    deepSum = node.val
+                elif curr_depth == depth:
+                    deepSum += node.val
+            else:
+                if node.right:
+                    stack.extend([node.right, curr_depth + 1])
+                if node.left:
+                    stack.extend([node.left, curr_depth + 1])           
+        return deepSum
+    
+# BFS
+class Solution:
+    def deepestLeavesSum(self, root: Optional[TreeNode]) -> int:
+        deepSum = 0
+        curr_depth = 0
+        depth = 0
+        stack = deque([root, 0])
+        while stack:
+            node = stack.popleft()
+            curr_depth = stack.popleft()
+            if node.left is None and node.right is None:
+                if curr_depth > depth:
+                    depth = curr_depth
+                    deepSum = node.val
+                elif curr_depth == depth:
+                    deepSum += node.val
+            else:
+                if node.right:
+                    stack.extend([node.right, curr_depth + 1])
+                if node.left:
+                    stack.extend([node.left, curr_depth + 1])           
+        return deepSum
+        
