@@ -1,0 +1,54 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+# DFS
+# class Solution:
+#     def getTargetCopy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
+#         stack = [cloned]
+#         while stack:
+#             node = stack.pop()
+#             if node.val == target.val:
+#                 return node
+#             if node.left is not None:
+#                 stack.append(node.left)
+#             if node.right is not None:
+#                 stack.append(node.right)
+#         return null
+    
+# Recurrsive
+# class Solution:
+#     def getTargetCopy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
+#         if cloned is not None:
+#             # print(cloned.val)
+#             if cloned.val == target.val:
+#                 return cloned
+#             else:
+#                 leftClone = self.getTargetCopy(original, cloned.left, target)
+#                 rightClone = self.getTargetCopy(original, cloned.right, target)
+#         else:
+#             return None
+#         if leftClone is not None:
+#             return leftClone
+#         if rightClone is not None:
+#             return rightClone
+
+# Breadth First Search Method
+class Solution:
+    def getTargetCopy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
+        clonedStack = deque([cloned])
+        originalStack = deque([original])
+        while originalStack:
+            originalNode = originalStack.popleft()
+            clonedNode = clonedStack.popleft()
+            if originalNode is target:
+                return clonedNode
+            if originalNode is not None:
+                originalStack.append(originalNode.left)
+                originalStack.append(originalNode.right)
+                clonedStack.append(clonedNode.left)
+                clonedStack.append(clonedNode.right)
+        return null
