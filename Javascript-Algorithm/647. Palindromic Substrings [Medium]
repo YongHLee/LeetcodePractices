@@ -1,0 +1,49 @@
+/**
+ * @param {string} s
+ * @return {number}
+ */
+
+// Brute Force
+// var countSubstrings = function(s) {
+//     let ans = 0
+//     for (let start = 0; start < s.length; start++) {
+//         for (let end = start; end < s.length; end ++) {
+//             ans += isPalindrom(s, start, end)
+//         }
+//     }
+//     return ans
+// };
+
+// var isPalindrom = function (s, start, end) {
+//     while (start < end) {
+//         if (s[start] !== s[end]) {
+//             return 0
+//         }
+//         start++
+//         end--
+//     }
+//     return 1
+// }
+
+// Expand Around Possible Centers
+var countSubstrings = function(s) {
+    let ans = 0
+    for (let i = 0; i < s.length; i++) {
+        // Odd length Palindrome
+        ans += countPalindromeAroundCenter(s, i, i)
+        // Even length Palindrome
+        ans += countPalindromeAroundCenter(s, i, i + 1)
+    }
+    return ans
+}
+
+var countPalindromeAroundCenter = function (s, start, end) {
+    let count = 0
+    while (start >= 0 && end < s.length) {
+        if (s[start] !== s[end]) break
+        start--
+        end++
+        count++
+    }
+    return count
+}
