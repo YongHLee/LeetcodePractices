@@ -1,0 +1,35 @@
+class Solution: 
+    # def countSubstrings(self, s: str) -> int:
+    #     ans = 0
+    #     for srt in range(len(s)):
+    #         for end in range(srt, len(s)):
+    #             def isPalindrome(s,srt,end):
+    #                 while srt < end:
+    #                     if s[srt] != s[end]:
+    #                         return 0
+    #                     srt += 1
+    #                     end -= 1
+    #                 return 1
+    #             ans += isPalindrome(s,srt,end)
+    #     return ans
+    
+    def countSubstrings(self, s: str) -> int:
+        ans = 0
+        for i in range(len(s)):
+            ans += self.countPalindromesAroundCenter(s, i, i)
+            ans += self.countPalindromesAroundCenter(s, i, i + 1)
+        return ans
+
+    def countPalindromesAroundCenter (self, s, srt, end):
+        ans = 0
+        while srt >= 0 and end < len(s):
+            if s[srt] != s[end]:
+                break
+            srt -= 1
+            end += 1
+            ans += 1
+        return ans
+                
+    
+
+        
