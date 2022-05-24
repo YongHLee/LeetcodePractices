@@ -1,0 +1,23 @@
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var longestValidParentheses = function(s) {
+    let stack = [-1]
+    let maxValid = 0
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] === '(') stack.push(i)
+        else {
+            stack.pop()
+            if (stack.length === 0) stack.push(i)
+            else maxValid = Math.max(maxValid, i - stack[stack.length -1])
+        }
+    }
+    return maxValid
+};
+
+/*
+-1 acts as starting point of valid string. 
+If ')' encountered, we pop the last element and if the stack is empty, it means the string is no l;onger valid and new stack
+should be started. So push current index as start of valid string. valid string length should be i - stack[stack.length -1] when ')' is encountered and stack is not empty after stack.pop()
+ */
