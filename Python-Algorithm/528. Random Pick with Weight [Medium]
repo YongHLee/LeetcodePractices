@@ -1,0 +1,33 @@
+class Solution:
+
+    def __init__(self, w: List[int]):
+        self.weightRange = []
+        self.weightRangeSum = 0
+        for weight in w:
+            self.weightRangeSum += weight
+            self.weightRange.append(self.weightRangeSum)
+
+    def pickIndex(self) -> int:
+        num = self.weightRangeSum * random.random()
+        # print(num)
+        # print(self.weightRange)
+        # Binary Search
+        left = 0
+        right = len(self.weightRange) - 1
+        while left < right:
+            mid = (right + left) // 2
+            if num > self.weightRange[mid]:
+                left = mid + 1
+            else:
+                right = mid
+        return left
+        # Linear Search
+        # for i in range(len(self.weightRange)):
+        #     if num <= self.weightRange[i]:
+        #         return i
+        
+
+
+# Your Solution object will be instantiated and called as such:
+# obj = Solution(w)
+# param_1 = obj.pickIndex()
