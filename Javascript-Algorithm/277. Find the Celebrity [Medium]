@@ -1,0 +1,75 @@
+/**
+ * Definition for knows()
+ * 
+ * @param {integer} person a
+ * @param {integer} person b
+ * @return {boolean} whether a knows b
+ * knows = function(a, b) {
+ *     ...
+ * };
+ */
+
+/**
+ * @param {function} knows()
+ * @return {function}
+ */
+var solution = function(knows) {
+    var isCeleb = function(i,n) {
+        for (let j = 0; j < n; j++) {
+            if (i === j) continue
+            if (knows(i,j) || !knows(j,i)) {
+                return false
+            }
+        }
+        return true
+    }
+    /**
+     * @param {integer} n Total people
+     * @return {integer} The celebrity
+     */
+    return function(n) {
+//         Brute Force
+//         knowing = {}
+//         known = {}
+//         candidates = []
+//         for (let i = 0; i < n; i++) {
+//             for (let j = 0; j < n; j++) {
+//                 let relationship = knows(i,j)
+//                 if (i !== j) {
+//                     if (relationship === true) {
+//                         knowing[i] ? knowing[i] += 1 : knowing[i] = 1
+//                         known[j] ? known[j] += 1 : known[j] = 1
+//                     }
+//                 }
+//             }    
+//         }
+        
+//         for (const [key, value] of Object.entries(known)) {
+//             allPeopleLen = n
+//             if (value === allPeopleLen - 1) {
+//                 candidates.push(key)
+//             }
+//         }
+//         for (let i = 0; i < candidates.length; i++) {
+//             if (knowing[candidates[i]] === undefined) {
+//                 return candidates[i]
+//             }
+//         }
+//         return -1
+        
+        // Logical deduction
+        let celebCandidate = 0
+        for (let i = 0; i < n; i++) {
+            if (knows(celebCandidate, i)) {
+                celebCandidate = i
+            }
+        }
+        // console.log(celebCandidate, isCeleb(celebCandidate,n))
+        if (isCeleb(celebCandidate,n)) {
+            return celebCandidate
+        }
+        return -1
+        
+    };
+
+};
