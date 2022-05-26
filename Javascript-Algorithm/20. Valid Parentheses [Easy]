@@ -1,0 +1,22 @@
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function(s) {
+    let stack = []
+    let open = ['(', '[', '{']
+    let pair = ['()', '[]', '{}']
+
+    for (let i = 0; i < s.length; i++) {
+        if (open.includes(s[i])){
+            stack.push(s[i])
+        } else {
+            let localPair = stack.pop() + s[i]
+            if (!pair.includes(localPair)){
+                return false
+            }
+        }
+    }
+    if (stack.length > 0) return false
+    return true
+};
