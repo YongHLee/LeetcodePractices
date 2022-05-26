@@ -1,0 +1,72 @@
+/**
+ * @param {string} s
+ * @return {number[]}
+ */
+// Stack Approach
+// var findPermutation = function(s) {
+//     let stack= []
+//     let ans = []
+//     for (let i = 1; i <= s.length; i++) {
+//         stack.push(i)
+//         if (s[i - 1] === 'I') {
+//             while (stack.length > 0) {
+//                 ans.push(stack.pop())
+//             }
+//         } 
+//     }
+//     stack.push(s.length + 1)
+//     while (stack.length > 0) {
+//         ans.push(stack.pop())
+//     }
+//     return ans
+// };
+
+// Reverse subarray Approach
+// var findPermutation = function(s) {
+//     let ans = new Array(s.length + 1)
+//     for (let i = 0; i < ans.length; i++) {
+//         ans[i] = i + 1
+//     }
+//     let i = 1
+//     while (i <= s.length) {
+//         let j = i
+//         while (i <= s.length && s[i-1] === 'D') {
+//             i++
+//         }
+//         reverse (ans, j - 1, i)
+//         i++
+//     }
+//     return ans
+
+// };
+
+// function reverse(arr, srt, end) {
+//     for (let i = 0; i < (end - srt) / 2; i++) {
+//         let temp = arr[i + srt]
+//         arr[i + srt] = arr[end - i - 1]
+//         arr[end - i - 1] = temp
+//     }
+// }
+
+// Two Pointer Approach
+var findPermutation = function(s) {
+    let ans = new Array(s.length + 1)
+    ans[0] = 1
+    let i = 1
+    while (i <= s.length) {
+        ans[i] = i + 1
+        let j = i
+        if(s[i-1] === 'D') {
+            while (i <= s.length && s[i-1] === 'D') {
+                i++
+            }
+            for (let k = j - 1, c = i; k <= i - 1; k++, c--) {
+                ans[k] = c
+            }
+        } else {
+            i++
+        }  
+    }
+    return ans
+
+};
