@@ -1,0 +1,17 @@
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        openSym = ['(', '[', '{']
+        pair = ['()', '[]', '{}']
+        for i in range(len(s)):
+            if s[i] in openSym:
+                stack.append(s[i])
+            else:
+                if len(stack) == 0:
+                    return False
+                localPair = stack.pop() + s[i]
+                if not (localPair in pair):
+                    return False
+        if len(stack) != 0:
+            return False
+        return True
