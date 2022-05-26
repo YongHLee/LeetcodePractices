@@ -1,0 +1,10 @@
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        numsDict = {}
+        for i in range(len(nums)):
+            if nums[i] in numsDict:
+                numsDict[nums[i]] += 1
+            else: 
+                numsDict[nums[i]] = 1
+            if numsDict[nums[i]] > len(nums) / 2:
+                return nums[i]
