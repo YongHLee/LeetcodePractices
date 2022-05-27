@@ -1,0 +1,39 @@
+class Solution:
+    # Dictionart Approach
+    # def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+    #     ans = []
+    #     freqDict = {}
+    #     if len(nums1) > len(nums2):
+    #         arrBig = nums1
+    #         arrSmall = nums2
+    #     else:
+    #         arrBig = nums2
+    #         arrSmall = nums1
+    #     for i in range(len(arrBig)):
+    #         if arrBig[i] in freqDict:
+    #             freqDict[arrBig[i]] += 1
+    #         else:
+    #              freqDict[arrBig[i]] = 1
+    #     for i in range(len(arrSmall)):
+    #         if arrSmall[i] in freqDict and freqDict[arrSmall[i]] > 0:
+    #             ans.append(arrSmall[i])
+    #             freqDict[arrSmall[i]] -= 1
+    #     return ans
+    
+    # Sort and pointer approach
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        ans = []
+        nums1.sort()
+        nums2.sort()
+        i = 0
+        j = 0
+        while i < len(nums1) and j < len(nums2):
+            if nums1[i] < nums2[j]:
+                i += 1
+            elif nums1[i] > nums2[j]:
+                j += 1
+            else:
+                ans.append(nums1[i])
+                i += 1
+                j += 1
+        return ans
