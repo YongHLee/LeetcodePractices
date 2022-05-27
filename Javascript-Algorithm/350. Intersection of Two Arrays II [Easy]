@@ -1,0 +1,49 @@
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+// Hashmap approach
+// var intersect = function(nums1, nums2) {
+//     let arrBig, arrSmall
+//     let obj = {}
+//     let ans = []
+//     if (nums1.length > nums2.length) {
+//         arrBig = nums1
+//         arrSmall = nums2
+//     } else {
+//         arrBig = nums2
+//         arrSmall = nums1
+//     }
+//     for (let i = 0; i < arrBig.length; i++) {
+//         obj[arrBig[i]] ? obj[arrBig[i]] += 1 : obj[arrBig[i]] = 1
+//     }
+//     for (let i = 0; i < arrSmall.length; i++) {
+//         if (obj[arrSmall[i]] !== undefined && obj[arrSmall[i]] > 0) {
+//             ans.push(arrSmall[i])
+//             obj[arrSmall[i]] -= 1
+//         }
+//     }
+//     return ans
+// };
+// Sort and pointer approach
+var intersect = function(nums1, nums2) {
+    nums1.sort((a,b) => a - b)
+    nums2.sort((a,b) => a - b)
+    let i = 0
+    let j = 0
+    let ans = []
+    while (i < nums1.length && j < nums2.length) {
+        // console.log(nums1[i] , nums2[j])
+        if (nums1[i] < nums2[j]) {
+            i++
+        } else if (nums1[i] > nums2[j]) {
+            j++
+        } else {
+            ans.push(nums1[i])
+            i++
+            j++
+        }
+    }
+    return ans
+};
