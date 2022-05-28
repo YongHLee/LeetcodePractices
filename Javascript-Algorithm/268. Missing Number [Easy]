@@ -12,15 +12,28 @@
 // }
 
 // Hashmap Method
+// var missingNumber = function(nums) {
+//     const numsMap = new Map()
+//     for (let i = 0; i < nums.length; i++) {
+//         numsMap.set(nums[i], true)
+//     }
+//     for (let i = 0; i < nums.length; i++) {
+//         if (numsMap.get(i) == undefined) {
+//             return i
+//         }
+//     }
+//     return nums.length
+// };
 var missingNumber = function(nums) {
-    const numsMap = new Map()
+    let obj = {}
     for (let i = 0; i < nums.length; i++) {
-        numsMap.set(nums[i], true)
+        obj[nums[i]] = true
     }
     for (let i = 0; i < nums.length; i++) {
-        if (numsMap.get(i) == undefined) {
+        if (obj[i] === undefined) {
             return i
         }
     }
-};
+    return nums.length
+}
 
