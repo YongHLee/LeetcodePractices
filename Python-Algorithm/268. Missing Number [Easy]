@@ -1,0 +1,17 @@
+class Solution:
+    # Gaussian Sum method
+    # def missingNumber(self, nums: List[int]) -> int:
+    #     n = len(nums)
+    #     gaussSum =  int((n * (n + 1)) / 2)
+    #     numsSum = sum(nums)
+    #     return gaussSum - numsSum
+    
+    def missingNumber(self, nums: List[int]) -> int:
+        numsDict = {}
+        for i in range(len(nums)): 
+            numsDict[nums[i]] = True
+        for i in range(len(nums)):
+            if i not in numsDict:
+                return i
+        return len(nums)
+    
