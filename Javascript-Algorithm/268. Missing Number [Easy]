@@ -1,0 +1,27 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+
+// Gauss Sum method
+// var missingNumber = function(nums) {
+//     let n = nums.length 
+//     let gaussSum = (n * (n + 1)) / 2
+//     let sum = nums.reduce((a,b) => a + b)
+//     return gaussSum - sum
+// }
+
+// Hashmap Method
+var missingNumber = function(nums) {
+    const numsMap = new Map()
+    for (let i = 0; i < nums.length; i++) {
+        numsMap.set(nums[i], true)
+    }
+    for (let i = 0; i < nums.length; i++) {
+        if (numsMap.get(i) == undefined) {
+            return i
+        }
+    }
+    return nums.length
+};
+
