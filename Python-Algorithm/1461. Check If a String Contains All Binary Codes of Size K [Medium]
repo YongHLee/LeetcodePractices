@@ -1,0 +1,15 @@
+class Solution:
+    def hasAllCodes(self, s: str, k: int) -> bool:
+        need = pow(2, k)
+        got = set()
+        for i in range(k, len(s) + 1):
+            subStr = s[i - k: i]
+            if subStr not in got:
+                got.add(subStr)
+                need -= 1
+        if need == 0:
+            return True
+        else:
+            return False
+    
+        # Use set to add all permutation seen across all substrings. If number of permuataion observed is 2 ^ k, return True
