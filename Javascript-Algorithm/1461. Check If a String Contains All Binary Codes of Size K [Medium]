@@ -1,0 +1,22 @@
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {boolean}
+ */
+var hasAllCodes = function(s, k) {
+    // permutaion of k length binary is 2 ^ k
+    let need = Math.pow(2, k)
+    let got = new Set()
+    for (i = k; i < s.length + 1; i++) {
+        let subStr = s.slice(i - k, i)
+        if (!got.has(subStr)) {
+            got.add(subStr)
+            need -= 1
+        }
+    }
+    if (need === 0) return true
+    else return false
+};
+
+// Use set to check if the permutation exists in the set. If it does not, add to the set and lower the count of permuatation of k length 
+// String we need to see. 
