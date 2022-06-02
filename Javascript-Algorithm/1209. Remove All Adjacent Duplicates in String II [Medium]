@@ -1,0 +1,43 @@
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {string}
+ */
+
+// Memoise count approach
+// var removeDuplicates = function(s, k) {
+//     s = s.split('')
+//     let count = new Array(s.length).fill(0)
+//     for (let i = 0; i < s.length; i++) {
+//         if (i === 0 || s[i] !== s[i-1]) {
+//             count[i] = 1
+//         } else {
+//             count[i] = count[i-1] + 1
+//             if (count[i] === k) {
+//                 s.splice(i-k+1, k)
+//                 i = i - k
+//             }
+//         }
+//     }    
+//     return s.join('')
+// };
+
+// Stack Approach
+var removeDuplicates = function(s, k) {
+    s = s.split('')
+    let counts = []
+    for (let i = 0; i < s.length; i++) {
+        if (i === 0 || s[i] !== s[i-1]) {
+            counts.push(1)
+        } else {
+            counts[counts.length - 1] += 1
+            if (counts[counts.length - 1] === k) {
+                counts.pop()
+                s.splice(i-k+1, k)
+                i = i - k
+            }
+        } 
+    }
+    return s.join('')
+}
+
