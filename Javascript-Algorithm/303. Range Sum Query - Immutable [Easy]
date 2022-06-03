@@ -1,0 +1,27 @@
+/**
+ * @param {number[]} nums
+ */
+// caching sum appraoch
+var NumArray = function(nums) {
+    this.nums = nums
+    this.leftSum = []
+    for (let i = 0; i < nums.length; i++) {
+        if (i !== 0) this.leftSum[i] = this.leftSum[i-1] + nums[i]
+        else this.leftSum[i] = nums[i]
+    } 
+};
+
+/** 
+ * @param {number} left 
+ * @param {number} right
+ * @return {number}
+ */
+NumArray.prototype.sumRange = function(left, right) {
+    return this.leftSum[right] - this.leftSum[left] + this.nums[left]
+};
+
+/** 
+ * Your NumArray object will be instantiated and called as such:
+ * var obj = new NumArray(nums)
+ * var param_1 = obj.sumRange(left,right)
+ */
