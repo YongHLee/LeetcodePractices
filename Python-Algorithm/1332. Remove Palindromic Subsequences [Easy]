@@ -1,0 +1,14 @@
+class Solution:
+    def removePalindromeSub(self, s: str) -> int:
+        if len(s) == 0: 
+            return 0
+        def isPalindrome(str):
+            for i in range(math.floor(len(str))):
+                if str[i] != str[len(str) - 1 - i]:
+                    return False
+            return True
+        
+        if isPalindrome(s):
+            return 1
+        return 2
+        
