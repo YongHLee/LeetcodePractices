@@ -1,0 +1,31 @@
+class Logger:
+
+    def __init__(self):
+        self.logger = {}
+
+    def shouldPrintMessage(self, timestamp: int, message: str) -> bool:
+        if message in self.logger:
+            lastTime = self.logger[message]
+        else:
+            lastTime = -1
+        if lastTime == -1 or timestamp - lastTime >= 10:
+            self.logger[message] = timestamp
+            return True
+        else:
+            return False
+
+
+# Your Logger object will be instantiated and called as such:
+# obj = Logger()
+# param_1 = obj.shouldPrintMessage(timestamp,message)
+
+# Logger.prototype.shouldPrintMessage = function(timestamp, message) {
+#     let lastTime = this.logger[message] 
+#     if (lastTime === undefined || timestamp - lastTime >= 10) {
+#         this.logger[message] = timestamp
+#         return true
+#     } else {
+#         return false
+#     }
+# };
+
