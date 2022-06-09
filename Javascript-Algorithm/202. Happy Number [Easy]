@@ -1,0 +1,19 @@
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isHappy = function(n) {
+    let cycle = {}
+    cycle[n] = true
+    while (n !== 1) {
+        let num = 0
+        let str = n.toString()
+        for(let i = 0; i < str.length; i++) {
+            num += Number(str[i]) * Number(str[i])
+        }
+        n = num
+        if (cycle[n]) return false
+        else cycle[n] = true
+    }
+    return true
+};
