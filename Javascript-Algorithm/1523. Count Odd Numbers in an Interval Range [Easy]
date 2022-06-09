@@ -9,6 +9,9 @@ var countOdds = function(low, high) {
         low += 1
         modifier += 1
     }
+    if (high % 2 !== 0) { 
+        high += 1
+    }
     return (high - low) / 2 + modifier
 };
 
