@@ -1,0 +1,15 @@
+/**
+ * @param {number} low
+ * @param {number} high
+ * @return {number}
+ */
+var countOdds = function(low, high) {
+    let modifier = 0
+    if (low % 2 !== 0) {
+        low += 1
+        modifier += 1
+    }
+    return (high - low) / 2 + modifier
+};
+
+// Most simple case is when ends of range are oth even number. Modify range to make it simple. 
