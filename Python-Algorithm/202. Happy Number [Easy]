@@ -1,0 +1,16 @@
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        cycle = {}
+        cycle[n] = True
+        while n is not 1:
+            num = 0
+            nStr = str(n)
+            for i in range(len(nStr)):
+                num += int(nStr[i]) * int(nStr[i]) 
+            n = num
+            if n in cycle:
+                return False
+            else:
+                cycle[n] = True
+        return True
+        
