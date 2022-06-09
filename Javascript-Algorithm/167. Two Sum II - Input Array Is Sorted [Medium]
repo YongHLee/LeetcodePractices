@@ -1,0 +1,18 @@
+/**
+ * @param {number[]} numbers
+ * @param {number} target
+ * @return {number[]}
+ */
+
+var twoSum = function(numbers, target) {
+    let leftPt = 0
+    let rightPt = numbers.length - 1
+    let isTargetReached = false
+    while (!isTargetReached) {
+        let guess = numbers[leftPt] + numbers[rightPt]
+        if (guess > target) --rightPt
+        else if (guess < target) ++leftPt
+        else isTargetReached = true
+    }
+    return [leftPt + 1, rightPt + 1] 
+};
