@@ -34,3 +34,42 @@ repeated letter. If this happened, we need to slide the "sliding window" by one 
 update the letter frequency map accordingly. first element of the sliding window is s[i - subStrLength]. 
 
  */
+ 
+ 
+ /**
+ * @param {string} s
+ * @return {number}
+ */
+// Sliding window
+// var lengthOfLongestSubstring = function(s) {
+//     var subStrLength = 0
+//     var letterFreq = {}
+//     var ans = 0
+//     for (let i = 0; i < s.length; i++) {
+//         letterFreq[s[i]] ? ++letterFreq[s[i]] : letterFreq[s[i]] = 1
+//         // console.log(letterFreq, subStrLength)
+//         while (letterFreq[s[i]] > 1) {
+//             --letterFreq[s[i - subStrLength]]
+//             --subStrLength
+//         }
+//         ++subStrLength
+//         ans = Math.max(subStrLength, ans)
+//     }
+//     return ans
+// };
+
+// Optimized sliding window
+var lengthOfLongestSubstring = function(s) {
+    n = s.length
+    ans = 0
+    mp = {}
+    i = 0
+    for (let j = 0; j < n; j++) {
+        if (s[j] in mp) {
+            i = Math.max(mp[s[j]] + 1, i)
+        }
+        ans = Math.max(ans, j - i + 1)
+        mp[s[j]] = j 
+    }
+    return ans
+}
